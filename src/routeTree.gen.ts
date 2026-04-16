@@ -9,8 +9,50 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StudentsRouteImport } from './routes/students'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as PredictionsRouteImport } from './routes/predictions'
+import { Route as MarksRouteImport } from './routes/marks'
+import { Route as JarvisRouteImport } from './routes/jarvis'
+import { Route as AttendanceRouteImport } from './routes/attendance'
 import { Route as IndexRouteImport } from './routes/index'
 
+const StudentsRoute = StudentsRouteImport.update({
+  id: '/students',
+  path: '/students',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PredictionsRoute = PredictionsRouteImport.update({
+  id: '/predictions',
+  path: '/predictions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarksRoute = MarksRouteImport.update({
+  id: '/marks',
+  path: '/marks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JarvisRoute = JarvisRouteImport.update({
+  id: '/jarvis',
+  path: '/jarvis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttendanceRoute = AttendanceRouteImport.update({
+  id: '/attendance',
+  path: '/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +61,130 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/attendance': typeof AttendanceRoute
+  '/jarvis': typeof JarvisRoute
+  '/marks': typeof MarksRoute
+  '/predictions': typeof PredictionsRoute
+  '/reports': typeof ReportsRoute
+  '/search': typeof SearchRoute
+  '/students': typeof StudentsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/attendance': typeof AttendanceRoute
+  '/jarvis': typeof JarvisRoute
+  '/marks': typeof MarksRoute
+  '/predictions': typeof PredictionsRoute
+  '/reports': typeof ReportsRoute
+  '/search': typeof SearchRoute
+  '/students': typeof StudentsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/attendance': typeof AttendanceRoute
+  '/jarvis': typeof JarvisRoute
+  '/marks': typeof MarksRoute
+  '/predictions': typeof PredictionsRoute
+  '/reports': typeof ReportsRoute
+  '/search': typeof SearchRoute
+  '/students': typeof StudentsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/attendance'
+    | '/jarvis'
+    | '/marks'
+    | '/predictions'
+    | '/reports'
+    | '/search'
+    | '/students'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/attendance'
+    | '/jarvis'
+    | '/marks'
+    | '/predictions'
+    | '/reports'
+    | '/search'
+    | '/students'
+  id:
+    | '__root__'
+    | '/'
+    | '/attendance'
+    | '/jarvis'
+    | '/marks'
+    | '/predictions'
+    | '/reports'
+    | '/search'
+    | '/students'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AttendanceRoute: typeof AttendanceRoute
+  JarvisRoute: typeof JarvisRoute
+  MarksRoute: typeof MarksRoute
+  PredictionsRoute: typeof PredictionsRoute
+  ReportsRoute: typeof ReportsRoute
+  SearchRoute: typeof SearchRoute
+  StudentsRoute: typeof StudentsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/students': {
+      id: '/students'
+      path: '/students'
+      fullPath: '/students'
+      preLoaderRoute: typeof StudentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/predictions': {
+      id: '/predictions'
+      path: '/predictions'
+      fullPath: '/predictions'
+      preLoaderRoute: typeof PredictionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marks': {
+      id: '/marks'
+      path: '/marks'
+      fullPath: '/marks'
+      preLoaderRoute: typeof MarksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jarvis': {
+      id: '/jarvis'
+      path: '/jarvis'
+      fullPath: '/jarvis'
+      preLoaderRoute: typeof JarvisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attendance': {
+      id: '/attendance'
+      path: '/attendance'
+      fullPath: '/attendance'
+      preLoaderRoute: typeof AttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +197,23 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AttendanceRoute: AttendanceRoute,
+  JarvisRoute: JarvisRoute,
+  MarksRoute: MarksRoute,
+  PredictionsRoute: PredictionsRoute,
+  ReportsRoute: ReportsRoute,
+  SearchRoute: SearchRoute,
+  StudentsRoute: StudentsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
