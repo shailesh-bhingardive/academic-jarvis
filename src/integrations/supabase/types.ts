@@ -14,7 +14,97 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      attendance: {
+        Row: {
+          created_at: string
+          date: string
+          id: string
+          status: string
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          id?: string
+          status: string
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: string
+          status?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      marks: {
+        Row: {
+          created_at: string
+          external: number
+          id: string
+          internal: number
+          student_id: string
+          subject: string
+        }
+        Insert: {
+          created_at?: string
+          external?: number
+          id?: string
+          internal?: number
+          student_id: string
+          subject: string
+        }
+        Update: {
+          created_at?: string
+          external?: number
+          id?: string
+          internal?: number
+          student_id?: string
+          subject?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marks_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      students: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          parent_contact: string | null
+          roll_number: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          parent_contact?: string | null
+          roll_number: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          parent_contact?: string | null
+          roll_number?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
